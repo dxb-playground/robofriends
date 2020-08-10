@@ -16,7 +16,7 @@ const store = createStore(
   rootReducer,
   applyMiddleware(
     thunkMiddleware,
-    logger
+    // logger
   )
 );
 
