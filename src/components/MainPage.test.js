@@ -20,7 +20,7 @@ describe('MainPage', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('filters robots correctly', () => {
+  it('does not show robots when no match is found', () => {
     let mock_props = {
       onRequestRobots: jest.fn(),
       robots: [
@@ -37,5 +37,30 @@ describe('MainPage', () => {
     let wrapper = shallow(<MainPage {...mock_props} />);
 
     expect(wrapper.instance().filterRobots([])).toEqual([]);
+  });
+
+  it('shows robots when a match is found', () => {
+    let mock_props = {
+      onRequestRobots: jest.fn(),
+      robots: [
+        {
+          id: 3,
+          name: 'Jon',
+          email: 'jon@gmail.com',
+        }
+      ],
+      searchField: 'jon',
+      isPending: false,
+    };
+
+    let wrapper = shallow(<MainPage {...mock_props} />);
+
+    expect(wrapper.instance().filterRobots([])).toEqual([
+      {
+        id: 3,
+        name: 'Jon',
+        email: 'jon@gmail.com',
+      }
+    ]);
   });
 });
